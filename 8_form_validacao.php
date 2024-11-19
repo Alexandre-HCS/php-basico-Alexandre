@@ -7,21 +7,32 @@
 <body>
     <form method="post" action="">
         <label for="nome">Nome:</label>
-        <input type="text" name="nome" required><br>
+        <input type="text" name="nome" ><br>
 
         <label for="email">Email:</label>
-        <input type="email" name="email" required><br>
+        <input type="email" name="email"><br>
 
         <label for="mensagem">Mensagem:</label>
-        <textarea name="mensagem" required></textarea><br>
+        <textarea name="mensagem" ></textarea><br>
 
         <button type="submit">Enviar</button>
     </form>
 
     <?php
-
-    // Digitar PHP (1º Aqui)
     
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $nome = $_POST['nome'];
+        $email = $_POST['email'];
+        $mensagem = $_POST['mensagem'];
+
+        // Valida de os campos não estão vazios e o email é válido
+        if (!empty($nome) && !empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($mensagem)){
+            echo "<p style= 'color: green;'>Feedback enviado com sucesso!</p>";
+        } else{
+            echo "<p style='color: red;'>Por favor, preencha todos os campos coretamente</p>";
+        }
+    }
+
     ?>
 </body>
 </html>
